@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject > _carsOnRoad = new List<GameObject>();// car,target
 
     private Transform _roadPoints;
-    private float _speed = 5;
+    [SerializeField] private float _speed = 2.5f;
 
     public static GameManager Instance { get; private set; }    
 
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
                 Transform nextRoadPoint = GetNextCheckPoint(roadPointTarget);
                 car.TargetRoadPoint = nextRoadPoint;
                 
-                if (nextRoadPoint.name == "Point")
+                if (nextRoadPoint == _roadPoints.GetChild(1))
                 {
                     OnCarLap?.Invoke(car);
                 }
@@ -56,6 +56,10 @@ public class GameManager : MonoBehaviour
 
             float distance = Vector3.Distance(car.transform.position, roadPointTarget.position);
             float duration = distance / _speed;
+
+            Vector3 dir = (roadPointTarget.position - car.transform.position).normalized;
+            dir.y = 0;
+            car.transform.forward = Vector3.Lerp(car.transform.forward,dir , 0.1f);
 
             carObject.transform.DOMove(roadPointTarget.position, duration);
         }
