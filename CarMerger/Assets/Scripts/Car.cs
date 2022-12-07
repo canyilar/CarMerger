@@ -6,9 +6,13 @@ namespace CarMerger
     {
         [SerializeField] private float _checkRadius = 2f;
 
+
         private Moveable _moveable;
         private Rigidbody _rb;
         private Vector3 _startPosition;
+
+       
+        public Transform TargetRoadPoint { get; set; }
 
         private void Awake()
         {
@@ -52,7 +56,8 @@ namespace CarMerger
 
                 if (hits[i].CompareTag("Road"))
                 {
-                    _rb.position = hits[i].ClosestPoint(transform.position);
+                    //_rb.position = hits[i].ClosestPoint(transform.position);
+                    GameManager.Instance.SetCarToRoad(gameObject);
                     break;
                 }
                 else if (hits[i].TryGetComponent(out ICombineable<Car> combineable))
@@ -66,5 +71,9 @@ namespace CarMerger
                 }
             }
         }
+    
+    
+
+    
     }
 }
