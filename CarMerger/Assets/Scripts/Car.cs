@@ -2,8 +2,9 @@
 
 public class Car : MonoBehaviour, ICombineable<Car>
 {
+    [SerializeField] private float _checkRadius = 2f;
+
     private Moveable _moveable;
-    private float _checkRadius = 2f;
     private Rigidbody _rb;
     private Vector3 _startPosition;
 
@@ -52,9 +53,4 @@ public class Car : MonoBehaviour, ICombineable<Car>
             }
         }
     }
-}
-
-public interface ICombineable<T>
-{
-    void Combine(T other);
 }

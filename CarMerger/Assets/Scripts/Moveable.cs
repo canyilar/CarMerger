@@ -3,22 +3,20 @@ using UnityEngine;
 
 public class Moveable : MonoBehaviour, IMoveable
 {
-    private Rigidbody _rb;
-    private bool _canMove;
-    private Vector3 _moveDirection;
-    private Vector3 _startPosition;
-
     public event Action OnMovementEnded;
+
+    private Rigidbody _rb;
+    private bool _isMoving;
+    private Vector3 _moveDirection;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _startPosition = transform.position;    
     }
 
     private void FixedUpdate()
     {
-        if (_canMove)
+        if (_isMoving)
         {
             _rb.MovePosition(_moveDirection);
         }
@@ -26,13 +24,13 @@ public class Moveable : MonoBehaviour, IMoveable
 
     public void StartMove(Vector3 pos)
     {
-        _canMove = true;
+        _isMoving = true;
         _moveDirection = pos;
     }
 
     public void StopMove()
     {
-        _canMove = false;
+        _isMoving = false;
         OnMovementEnded?.Invoke();
     }
 }

@@ -1,17 +1,15 @@
-using System;
 using UnityEngine;
 
 public class ObjectMover : MonoBehaviour
 {
-    public static ObjectMover Instance { get; private set; }
-
     [SerializeField] private float _distanceFromCamera = 10f;
     [SerializeField] private LayerMask _hitLayers;
+
     private Camera _mainCam;
-    public IMoveable Moveable { get; set; }
+    private IMoveable _currentMoveable;
+
     private void Awake()
     {
-        Instance = this;
         _mainCam = Camera.main;
     }
 
@@ -28,22 +26,15 @@ public class ObjectMover : MonoBehaviour
 
                 if (hit.collider.TryGetComponent(out IMoveable moveable))
                 {
-                    Moveable = moveable;
+                    _currentMoveable = moveable;
                     moveable.StartMove(worldPos);
                 }
             }
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if (Moveable != null) Moveable.StopMove();
+            if (_currentMoveable != null) _currentMoveable.StopMove();
         }
 
     }
-}
-
-public interface IMoveable
-{
-    event Action OnMovementEnded;
-    void StartMove(Vector3 pos);
-    void StopMove();
 }
