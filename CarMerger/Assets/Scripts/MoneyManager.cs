@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MoneyManager : MonoBehaviour
+namespace CarMerger
 {
-    // Start is called before the first frame update
-    void Start()
+    public class MoneyManager : MonoBehaviour
     {
-        
-    }
+        public static MoneyManager Instance { get; private set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] private int _money;
+
+        private void Awake()
+        {
+            if (Instance == null) Instance = this;
+        }
+
+        public void AddMoney(int amount) => _money += amount;
+        public void RemoveMoney(int amount) => _money -= amount;
+        public int GetMoney() => _money;
     }
 }

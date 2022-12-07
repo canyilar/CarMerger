@@ -31,6 +31,7 @@ namespace CarMerger.Editors
                 carPrefab.name,
             };
             DrawPropertiesExcluding(obj, exlucededProps);
+            obj.ApplyModifiedProperties();
         }
 
     }
