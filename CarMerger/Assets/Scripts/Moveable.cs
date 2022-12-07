@@ -1,36 +1,39 @@
 using System;
 using UnityEngine;
 
-public class Moveable : MonoBehaviour, IMoveable
+namespace CarMerger
 {
-    public event Action OnMovementEnded;
-
-    private Rigidbody _rb;
-    private bool _isMoving;
-    private Vector3 _moveDirection;
-
-    private void Awake()
+    public class Moveable : MonoBehaviour, IMoveable
     {
-        _rb = GetComponent<Rigidbody>();
-    }
+        public event Action OnMovementEnded;
+        
+        private Rigidbody _rb;
+        private bool _isMoving;
+        private Vector3 _moveDirection;
 
-    private void FixedUpdate()
-    {
-        if (_isMoving)
+        private void Awake()
         {
-            _rb.MovePosition(_moveDirection);
+            _rb = GetComponent<Rigidbody>();
         }
-    }
 
-    public void StartMove(Vector3 pos)
-    {
-        _isMoving = true;
-        _moveDirection = pos;
-    }
+        private void FixedUpdate()
+        {
+            if (_isMoving)
+            {
+                _rb.MovePosition(_moveDirection);
+            }
+        }
 
-    public void StopMove()
-    {
-        _isMoving = false;
-        OnMovementEnded?.Invoke();
-    }
+        public void StartMove(Vector3 pos)
+        {
+            _isMoving = true;
+            _moveDirection = pos;
+        }
+
+        public void StopMove()
+        {
+            _isMoving = false;
+            OnMovementEnded?.Invoke();
+        }
+    } 
 }

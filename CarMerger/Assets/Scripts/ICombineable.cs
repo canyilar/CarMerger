@@ -1,4 +1,7 @@
-﻿public interface ICombineable<T>
+﻿namespace CarMerger
 {
-    void Combine(T other);
+    public interface ICombineable<T>
+    {
+        void Combine(T other);
+    }
 }
