@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2450849524299618377}
   - component: {fileID: 2450849524299618376}
   m_Layer: 0
-  m_Name: Car
+  m_Name: Car 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b22746fc01f372419774e40374910e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carLevel: 1
+  carLevel: 2
   _checkRadius: 1
 --- !u!114 &2450849524299618376
 MonoBehaviour:
@@ -152,7 +152,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b831481b156c44545b368a88ec28aace, type: 2}
+  - {fileID: 2100000, guid: 00100f04c6bb06b469ba4c78737f2d46, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

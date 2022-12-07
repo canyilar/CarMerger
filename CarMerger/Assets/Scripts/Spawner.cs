@@ -8,7 +8,7 @@ namespace CarMerger
         public static Spawner Instance { get; private set; }
 
         [Header("Car")]
-        [SerializeField] private Car _carPrefab;
+        [SerializeField] private Car[] _carPrefabs;
         [SerializeField] private Transform _carHolder;
 
         [Header("Grid")]
@@ -21,9 +21,12 @@ namespace CarMerger
 
         private List<CarGrid> _carGrids;
 
+        public int MaxCarLevel { get; private set; }
+
         private void Awake()
         {
             if (Instance == null) Instance = this;
+            MaxCarLevel = _carPrefabs.Length;
         }
 
         private void Start()
@@ -47,18 +50,37 @@ namespace CarMerger
             }
         }
 
+        /// <summary>
+        /// Spawns level 1 car
+        /// </summary>
         public void SpawnCar()
         {
             foreach(CarGrid grid in _carGrids)
             {
                 if (grid.AssignedCar == null)
                 {
-                    Car newCar = Instantiate(_carPrefab, grid.transform.position, Quaternion.identity);
+                    Car newCar = Instantiate(_carPrefabs[0], grid.transform.position, Quaternion.identity);
                     newCar.transform.SetParent(_carHolder);
                     grid.AssignCar(newCar);
                     break;
                 }
             }
+        }
+
+        public Car SpawnCar(int level, Vector3 posititon)
+        {
+            foreach (CarGrid grid in _carGrids)
+            {
+                if (grid.AssignedCar == null)
+                {
+                    Car newCar = Instantiate(_carPrefabs[level - 1], posititon, Quaternion.identity);
+                    newCar.transform.SetParent(_carHolder);
+                    grid.AssignCar(newCar);
+                    return newCar;
+                }
+            }
+
+            return null;
         }
     }
 }

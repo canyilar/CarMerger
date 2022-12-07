@@ -11,7 +11,7 @@ namespace CarMerger.Editors
             Spawner carSpawner = (Spawner)target;
             SerializedObject obj = new(carSpawner);
 
-            SerializedProperty carPrefab = obj.FindProperty("_carPrefab");
+            SerializedProperty carPrefab = obj.FindProperty("_carPrefabs");
             SerializedProperty carHolder = obj.FindProperty("_carHolder");
 
             EditorGUILayout.PropertyField(carPrefab);

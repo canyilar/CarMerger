@@ -4,15 +4,14 @@ namespace CarMerger
 {
     public class Car : MonoBehaviour, ICombineable<Car>
     {
+        [SerializeField] private int carLevel;
         [SerializeField] private float _checkRadius = 2f;
 
+        public Transform TargetRoadPoint { get; set; }
 
         private Moveable _moveable;
         private Rigidbody _rb;
         private Vector3 _startPosition;
-
-       
-        public Transform TargetRoadPoint { get; set; }
 
         private void Awake()
         {
@@ -33,7 +32,18 @@ namespace CarMerger
 
         public void Combine(Car other)
         {
-            Debug.Log("I have combined with " + other.name);
+            if (carLevel == Spawner.Instance.MaxCarLevel) return;
+
+            if (other.carLevel == carLevel)
+            {
+                Debug.Log("I have combined with " + other.name);
+
+                Spawner.Instance.SpawnCar(carLevel + 1, transform.position);
+
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+            }
+
         }
 
         private void CheckForAction()
