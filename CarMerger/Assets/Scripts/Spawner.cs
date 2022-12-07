@@ -5,6 +5,8 @@ namespace CarMerger
 {
     public class Spawner : MonoBehaviour
     {
+        public static Spawner Instance { get; private set; }
+
         [Header("Car")]
         [SerializeField] private Car _carPrefab;
         [SerializeField] private Transform _carHolder;
@@ -18,6 +20,11 @@ namespace CarMerger
         [SerializeField] private Transform _gridHolder;
 
         private List<CarGrid> _carGrids;
+
+        private void Awake()
+        {
+            if (Instance == null) Instance = this;
+        }
 
         private void Start()
         {
