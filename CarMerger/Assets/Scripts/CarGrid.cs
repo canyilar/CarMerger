@@ -3,7 +3,7 @@ using UnityEngine;
 namespace CarMerger
 {
     [SelectionBase]
-    public class CarGrid : MonoBehaviour
+    public class CarGrid : MonoBehaviour, ICarActioner
     {
         [SerializeField] private Car _assignedCar;
 
@@ -15,12 +15,18 @@ namespace CarMerger
 
             _assignedCar = car;
             _assignedCar.AssignedGrid = this;
+            _assignedCar.SetPosition(transform.position);
             return true;
         }
 
         public void ClearGrid()
         {
             _assignedCar = null;
+        }
+
+        public bool DoAction(Car car)
+        {
+            return AssignCar(car);
         }
     }
 }

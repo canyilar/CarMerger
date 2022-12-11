@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CarMerger
 {
     [SelectionBase]
-    public class Car : MonoBehaviour, ICombineable<Car>
+    public class Car : MonoBehaviour, ICombineable<Car>, ICarActioner
     {
         [SerializeField] private int _carLevel;
         [SerializeField] private bool _isOnRoad;
@@ -83,31 +83,12 @@ namespace CarMerger
                     continue;
                 }
 
-                if (hits[i].CompareTag("Road"))
+                if (hits[i].TryGetComponent(out ICarActioner carActioner))
                 {
-                    //GameManager.Instance.SetCarToRoad(gameObject);
-                    Spawner.Instance.SpawnPlaceholder(this);
-                    break;
-                }
-                else if (hits[i].TryGetComponent(out ICombineable<Car> combineable))
-                {
-                    if (combineable.Combine(this))
-                    {
+                    if (carActioner.DoAction(this))
                         break;
-                    }
                 }
-                else if (hits[i].TryGetComponent(out CarGrid grid))
-                {
-                    if (grid.AssignCar(this))
-                    {
-                        SetPosition(grid.transform.position);
-                        break;
-                    }
-                }
-                else
-                {
-                    SetPosition(_currentPosition);
-                }
+                else SetPosition(_currentPosition);
             }
         }
 
@@ -131,6 +112,11 @@ namespace CarMerger
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, _checkRadius);
+        }
+
+        public bool DoAction(Car car)
+        {
+            return Combine(car);
         }
     }
 }
