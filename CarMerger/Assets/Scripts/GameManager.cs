@@ -4,19 +4,25 @@ using UnityEngine;
 using DG.Tweening;
 using CarMerger;
 using System;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _roadManager;
-    private List<GameObject > _carsOnRoad = new List<GameObject>();// car,target
+    public static GameManager Instance { get; private set; }
+    public int currentMoney;
 
+    //Road
+    [SerializeField] private GameObject _roadManager;
+    private List<GameObject > _carsOnRoad = new List<GameObject>();
     private Transform _roadPoints;
     [SerializeField] private float _speed = 2.5f;
-
-    public static GameManager Instance { get; private set; }    
-
-
     public event Action<Car> OnCarLap;
+
+
+    //UI
+    [SerializeField] private Transform _canvas;
+    [SerializeField] private GameObject _moneyPrefab;
+    [SerializeField] private Transform _moneyUIIcon;
 
 
     private void Start()
@@ -47,8 +53,9 @@ public class GameManager : MonoBehaviour
                 Transform nextRoadPoint = GetNextCheckPoint(roadPointTarget);
                 car.TargetRoadPoint = nextRoadPoint;
                 
-                if (nextRoadPoint == _roadPoints.GetChild(1))
+                if (nextRoadPoint == _roadPoints.GetChild(1))//new lap
                 {
+                    AddMoney(car.transform.position, 250);
                     OnCarLap?.Invoke(car);
                 }
                 continue;
@@ -124,6 +131,24 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    public void AddMoney(Vector3 startWorldPos,int value)
+    {
+       
+        currentMoney += value;
+        Vector3 uiStartPos = Camera.main.WorldToScreenPoint(startWorldPos);
+        GameObject money = Instantiate(_moneyPrefab, _canvas);
+        Transform moneyTransform = money.transform;
+        TMP_Text moneyText = moneyTransform.GetChild(0).GetComponent<TMP_Text>();
+        moneyText.text=value.ToString();
+        moneyTransform.position = uiStartPos;
+        moneyTransform.DOMove(_moneyUIIcon.position, 0.5f).OnComplete(() => {
+            Destroy(money);
+            TMP_Text text = _moneyUIIcon.GetChild(0).GetComponent<TMP_Text>();
+            text.text = currentMoney.ToString();
+        }
+        );
+
+    }
 
 
 }
