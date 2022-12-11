@@ -736,6 +736,7 @@ MonoBehaviour:
   _spawnCarsOnStart: 1
   _carPlaceholderPrefabs:
   - {fileID: -5808491283518818419, guid: 39272a889221f53458f35b4b53fd27da, type: 3}
+  - {fileID: -5808491283518818419, guid: 39272a889221f53458f35b4b53fd27da, type: 3}
   _width: 3
   _height: 3
   _distanceBtwnGrids: 1.5
