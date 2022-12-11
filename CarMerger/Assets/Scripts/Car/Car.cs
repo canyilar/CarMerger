@@ -51,6 +51,11 @@ namespace CarMerger
             _moveable.OnMovementEnded -= CheckForAction;
         }
 
+        public bool DoAction(Car car)
+        {
+            return Combine(car);
+        }
+
         public bool Combine(Car other)
         {
             if (_isOnRoad || other._carLevel != _carLevel || _carLevel == Spawner.Instance.MaxCarLevel) return false;
@@ -83,7 +88,13 @@ namespace CarMerger
                     continue;
                 }
 
-                if (hits[i].TryGetComponent(out ICarActioner carActioner))
+                if (hits[i].CompareTag("Road"))
+                {
+                    //GameManager.Instance.SetCarToRoad(gameObject);
+                    Spawner.Instance.SpawnPlaceholder(this);
+                    break;
+                }
+                else if (hits[i].TryGetComponent(out ICarActioner carActioner))
                 {
                     if (carActioner.DoAction(this))
                         break;
@@ -112,11 +123,6 @@ namespace CarMerger
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, _checkRadius);
-        }
-
-        public bool DoAction(Car car)
-        {
-            return Combine(car);
         }
     }
 }
