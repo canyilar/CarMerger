@@ -13,7 +13,7 @@ namespace CarMerger
 
         private void OnMouseDown()
         {
-            //GameManager.Instance.RemoveCarFromRoad(_placeholdingCar.gameObject);
+            _placeholdingCar.AssignedRoad.RemoveCarFromRoad(_placeholdingCar);
             _placeholdingCar.SetPositionSmooth(transform.position);
             _placeholdingCar.SetRotationSmooth(transform.eulerAngles);
             Destroy(gameObject);

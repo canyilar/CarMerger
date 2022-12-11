@@ -8,17 +8,21 @@ namespace CarMerger
     {
         [SerializeField] private int _carLevel;
         [SerializeField] private bool _isOnRoad;
+        [SerializeField] private float _speed;
 
         [Header("Grid")]
         [SerializeField] private CarGrid _assignedGrid;
         [SerializeField] private Vector3 _currentPosition;
+        [SerializeField] private Road _assignedRoad;
 
         [Header("Detection Settings")]
         [SerializeField] private float _checkRadius = 2f;
         [SerializeField] private Vector3 _checkOffset;
 
+        public Road AssignedRoad => _assignedRoad;
         public Transform TargetRoadPoint { get; set; }
         public int CarLevel => _carLevel;
+        public float Speed => _speed;
         public CarGrid AssignedGrid { get => _assignedGrid; 
             set 
             {
@@ -87,20 +91,27 @@ namespace CarMerger
                     SetPosition(_currentPosition);
                     continue;
                 }
-
-                if (hits[i].CompareTag("Road"))
-                {
-                    //GameManager.Instance.SetCarToRoad(gameObject);
-                    Spawner.Instance.SpawnPlaceholder(this);
-                    break;
-                }
-                else if (hits[i].TryGetComponent(out ICarActioner carActioner))
+                
+                if (hits[i].TryGetComponent(out ICarActioner carActioner))
                 {
                     if (carActioner.DoAction(this))
                         break;
                 }
                 else SetPosition(_currentPosition);
             }
+        }
+
+        public void AssignRoad(Road road)
+        {
+            _moveable.SetCanMove(false);
+            _assignedRoad = road;
+            _isOnRoad = true;
+        }
+
+        public void RemoveRoad()
+        {
+            _assignedRoad = null;
+            _isOnRoad = false;
         }
 
         public void SetPosition(Vector3 pos)

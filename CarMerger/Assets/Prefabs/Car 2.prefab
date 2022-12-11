@@ -78,10 +78,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _carLevel: 2
-  _checkRadius: 0.6
-  _checkOffset: {x: 0, y: 0, z: 0}
+  _isOnRoad: 0
+  _speed: 12
   _assignedGrid: {fileID: 0}
   _currentPosition: {x: 0, y: 0, z: 0}
+  _assignedRoad: {fileID: 0}
+  _checkRadius: 0.6
+  _checkOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &2450849524299618376
 MonoBehaviour:
   m_ObjectHideFlags: 0
