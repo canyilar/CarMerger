@@ -733,6 +733,9 @@ MonoBehaviour:
   - {fileID: 2450849524299618377, guid: 4e4d74e0bd4080d4e9be064d193d7884, type: 3}
   - {fileID: 2450849524299618377, guid: 206a843e35b87014cada1db757f93af0, type: 3}
   _carHolder: {fileID: 1299255390}
+  _spawnCarsOnStart: 1
+  _carPlaceholderPrefabs:
+  - {fileID: -5808491283518818419, guid: 39272a889221f53458f35b4b53fd27da, type: 3}
   _width: 3
   _height: 3
   _distanceBtwnGrids: 1.5

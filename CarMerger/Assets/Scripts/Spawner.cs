@@ -10,6 +10,8 @@ namespace CarMerger
         [Header("Car")]
         [SerializeField] private Car[] _carPrefabs;
         [SerializeField] private Transform _carHolder;
+        [SerializeField] private bool _spawnCarsOnStart;
+        [SerializeField] private CarPlaceholder[] _carPlaceholderPrefabs;
 
         [Header("Grid")]
         [SerializeField] private int _width;
@@ -19,9 +21,9 @@ namespace CarMerger
         [SerializeField] private Transform _gridSpawnPosition;
         [SerializeField] private Transform _gridHolder;
 
-        private List<CarGrid> _carGrids;
-
         public int MaxCarLevel { get; private set; }
+
+        private List<CarGrid> _carGrids;
 
         private void Awake()
         {
@@ -32,6 +34,14 @@ namespace CarMerger
         private void Start()
         {
             SpawnGrids();
+
+            if (_spawnCarsOnStart)
+            {
+                for (int i = 0; i < _carGrids.Count; i++)
+                {
+                    SpawnCar();
+                }
+            }
         }
 
         private void SpawnGrids()
@@ -51,11 +61,11 @@ namespace CarMerger
         }
 
         /// <summary>
-        /// Spawns level 1 car
+        /// Spawn Level 1 car.
         /// </summary>
         public void SpawnCar()
         {
-            foreach(CarGrid grid in _carGrids)
+            foreach (CarGrid grid in _carGrids)
             {
                 if (grid.AssignedCar == null)
                 {
@@ -81,6 +91,27 @@ namespace CarMerger
             }
 
             return null;
+        }
+
+        public Car SpawnCarOnGrid(CarGrid grid, int level)
+        {
+            Car newCar = Instantiate(_carPrefabs[level - 1], grid.transform.position, Quaternion.identity);
+            newCar.transform.SetParent(_carHolder);
+
+            if (grid.AssignCar(newCar))
+            {
+                return newCar;
+            }
+
+            Destroy(newCar.gameObject);
+            return null;
+        }
+
+        public void SpawnPlaceholder(Car car)
+        {
+            CarPlaceholder holder = Instantiate(_carPlaceholderPrefabs[car.CarLevel - 1], car.AssignedGrid.transform.position, car.AssignedGrid.transform.rotation);
+            holder.transform.SetParent(_carHolder);
+            holder.PlaceholdCar(car);
         }
     }
 }

@@ -77,8 +77,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b22746fc01f372419774e40374910e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carLevel: 1
-  _checkRadius: 1
+  _carLevel: 1
+  _checkRadius: 0.6
+  _checkOffset: {x: 0, y: 0, z: 0}
+  _assignedGrid: {fileID: 0}
+  _currentPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2450849524299618376
 MonoBehaviour:
   m_ObjectHideFlags: 0

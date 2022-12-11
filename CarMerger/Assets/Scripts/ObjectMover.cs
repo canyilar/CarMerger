@@ -33,7 +33,8 @@ namespace CarMerger
 
                     if (hit.collider.TryGetComponent(out IMoveable moveable))
                     {
-                        _currentMoveable = moveable;
+                        if (moveable.CanMove)
+                            _currentMoveable = moveable;
                     }
                 }
             }
