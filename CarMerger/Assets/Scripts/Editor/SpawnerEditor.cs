@@ -11,10 +11,12 @@ namespace CarMerger.Editors
             Spawner carSpawner = (Spawner)target;
             SerializedObject obj = new(carSpawner);
 
-            SerializedProperty carPrefab = obj.FindProperty("_carPrefab");
+            SerializedProperty carPrefab = obj.FindProperty("_carPrefabs");
             SerializedProperty carHolder = obj.FindProperty("_carHolder");
+            SerializedProperty spawnOnStart = obj.FindProperty("_spawnCarsOnStart");
 
             EditorGUILayout.PropertyField(carPrefab);
+            EditorGUILayout.PropertyField(spawnOnStart);
             EditorGUILayout.PropertyField(carHolder);
 
             GUILayout.Space(10);
@@ -29,6 +31,7 @@ namespace CarMerger.Editors
                 "m_Script",
                 carHolder.name,
                 carPrefab.name,
+                spawnOnStart.name,
             };
             DrawPropertiesExcluding(obj, exlucededProps);
             obj.ApplyModifiedProperties();
