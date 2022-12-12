@@ -63,6 +63,7 @@ namespace CarMerger
 
         public void SetCarToRoad(Car car)
         {
+            TutorialManager.Instance.ClosePutOnRoadTut();
             Transform startPoint = _roadPoints[0];
             Transform nextPoint = _roadPoints[1];
             car.transform.position = startPoint.position;

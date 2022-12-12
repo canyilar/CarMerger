@@ -69,6 +69,7 @@ namespace CarMerger
             AssignedGrid = null;
 
             Spawner.Instance.SpawnCarOnGrid(grid, _carLevel + 1);
+            TutorialManager.Instance.CloseCombineTut();
 
             Destroy(other.gameObject);
             Destroy(gameObject);
