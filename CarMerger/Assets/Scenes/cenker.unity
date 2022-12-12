@@ -231,8 +231,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99f0f9bc9c2585499417160f3565663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMoney: 0
   _roadManager: {fileID: 875769054}
   _speed: 2.5
+  _canvas: {fileID: 1308223960}
+  _moneyPrefab: {fileID: 8758823161161689113, guid: f7ba70c21c62625499ce50229b627dfc, type: 3}
+  _moneyUIIcon: {fileID: 3140981877367643873}
 --- !u!4 &52968094
 Transform:
   m_ObjectHideFlags: 0
