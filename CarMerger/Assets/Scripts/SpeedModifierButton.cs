@@ -8,6 +8,7 @@ namespace CarMerger
         public void OnPointerDown(PointerEventData eventData)
         {
             GameManager.Instance.IncreaseSpeedMultiplier();
+            TutorialManager.Instance.CloseButtonTut();
         }
 
         public void OnPointerUp(PointerEventData eventData)
