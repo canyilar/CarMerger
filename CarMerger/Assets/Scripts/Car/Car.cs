@@ -124,11 +124,11 @@ namespace CarMerger
         {
             _moveable.SetCanMove(false);
             _currentPosition = pos;
-            _rb.DOMove(pos, 0.8f).SetEase(Ease.Linear).OnComplete(() => _moveable.SetCanMove(true, 0.5f));
+            _rb.DOMove(pos, 0.6f).SetEase(Ease.Linear).OnComplete(() => _moveable.SetCanMove(true, 0.5f));
         }
 
         public void SetRotation(Quaternion rot) => _rb.rotation = rot;
-        public void SetRotationSmooth(Vector3 rot) => _rb.DORotate(rot, 0.8f).SetEase(Ease.Linear);
+        public void SetRotationSmooth(Vector3 rot) => _rb.DORotate(rot, 0.6f).SetEase(Ease.Linear);
 
         private void OnDrawGizmosSelected()
         {

@@ -6,29 +6,18 @@ namespace CarMerger
 {
     public class Road : MonoBehaviour, ICarActioner
     {
-        [SerializeField] private int _minSpeedMultiplier = 1;
-        [SerializeField] private int _maxSpeedMultiplier = 5;
-
         [Space(15)]
         [SerializeField] private Transform[] _roadPoints;
 
         public static event Action<Car> OnCarLap;
 
-        private int _speedMultiplier = 1;
         private List<Car> _carsOnRoad = new List<Car>();
 
         private void Update()
         {
             MoveCarsOnRoad();
 
-            if (Input.GetMouseButton(0))
-            {
-                _speedMultiplier = _maxSpeedMultiplier;
-            }
-            else
-            {
-                _speedMultiplier = _minSpeedMultiplier;
-            }
+            
         }
 
         public bool DoAction(Car car)
@@ -68,7 +57,7 @@ namespace CarMerger
                 dir.y = 0;
                 car.transform.forward = Vector3.Lerp(car.transform.forward, dir, 0.1f);
 
-                car.transform.position = Vector3.MoveTowards(car.transform.position, roadPointTarget.position, car.Speed * _speedMultiplier * Time.deltaTime);
+                car.transform.position = Vector3.MoveTowards(car.transform.position, roadPointTarget.position, car.Speed * GameManager.Instance.SpeedMultiplier * Time.deltaTime);
             }
         }
 

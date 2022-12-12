@@ -220,7 +220,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2098181721528577839}
-  - component: {fileID: 3228809181154819127}
   m_Layer: 5
   m_Name: Money
   m_TagString: Untagged
@@ -250,11 +249,3 @@ RectTransform:
   m_AnchoredPosition: {x: 129.8, y: -124.6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &3228809181154819127
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8758823161161689113}
-  m_CullTransparentMesh: 1
