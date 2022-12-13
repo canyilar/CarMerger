@@ -1,23 +1,12 @@
+using TMPro;
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
 
 namespace CarMerger
 {
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
-
-        [SerializeField] private int _minSpeedMultiplier = 1;
-        [SerializeField] private int _maxSpeedMultiplier = 5;
-
-        [SerializeField] private int _currentMoney;
-        //UI
-        [SerializeField] private Transform _canvas;
-        [SerializeField] private GameObject _moneyPrefab;
-        [SerializeField] private RectTransform _moneyUITransform;
-        [SerializeField] private TextMeshProUGUI _moneyText;
-
         public static Camera MainCamera
         {
             get 
@@ -32,7 +21,19 @@ namespace CarMerger
         }
         private static Camera _mainCamera;
 
+        [SerializeField] private int _minSpeedMultiplier = 1;
+        [SerializeField] private int _maxSpeedMultiplier = 5;
+
+        [SerializeField] private int _currentMoney;
+        //UI
+        [SerializeField] private Transform _canvas;
+        [SerializeField] private GameObject _moneyPrefab;
+        [SerializeField] private RectTransform _moneyUITransform;
+        [SerializeField] private TextMeshProUGUI _moneyText;
+
         public int SpeedMultiplier => _speedMultiplier;
+        public int CurrentMoney => _currentMoney;
+
         private int _speedMultiplier;
 
         private void Awake()
@@ -79,6 +80,14 @@ namespace CarMerger
                     UpdateMoneyText();
                 }
             );
+        }
+
+        public void RemoveMoney(int amount)
+        {
+            _currentMoney -= amount;
+            if (_currentMoney <= 0) _currentMoney = 0;
+
+            UpdateMoneyText();
         }
 
         public void UpdateMoneyText()

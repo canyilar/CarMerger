@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace CarMerger
 {
@@ -8,7 +8,7 @@ namespace CarMerger
     {
         [Space(15)]
         [SerializeField] private Transform[] _roadPoints;
-
+        [SerializeField] private float _carRotateSpeed = 4;
         public static event Action<Car> OnCarLap;
 
         private List<Car> _carsOnRoad = new List<Car>();
@@ -16,8 +16,6 @@ namespace CarMerger
         private void Update()
         {
             MoveCarsOnRoad();
-
-            
         }
 
         public bool DoAction(Car car)
@@ -36,15 +34,11 @@ namespace CarMerger
 
                 if (roadPointTarget.position.IsSameWith(car.transform.position))
                 {
-                    //if car is on roadpoint set next target
-                    // moveNextRoadPoint.Add(car);
-
                     Transform nextRoadPoint = GetNextCheckPoint(roadPointTarget);
                     car.TargetRoadPoint = nextRoadPoint;
 
                     if (nextRoadPoint == _roadPoints[1])//new lap
                     {
-                        //AddMoney(car.transform.position, 250);
                         OnCarLap?.Invoke(car);
                     }
                     continue;
@@ -55,7 +49,7 @@ namespace CarMerger
 
                 Vector3 dir = (roadPointTarget.position - car.transform.position).normalized;
                 dir.y = 0;
-                car.transform.forward = Vector3.Lerp(car.transform.forward, dir, 0.1f);
+                car.transform.forward = Vector3.Lerp(car.transform.forward, dir, _carRotateSpeed * Time.deltaTime);
 
                 car.transform.position = Vector3.MoveTowards(car.transform.position, roadPointTarget.position, car.Speed * GameManager.Instance.SpeedMultiplier * Time.deltaTime);
             }
@@ -88,7 +82,6 @@ namespace CarMerger
                     if (i == childrenCount - 1)
                     {
                         return _roadPoints[0];
-
                     }
                     else
                     {
@@ -98,7 +91,6 @@ namespace CarMerger
             }
 
             return null;
-
         }
     }
 }

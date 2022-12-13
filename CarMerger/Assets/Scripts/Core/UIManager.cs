@@ -4,6 +4,13 @@ namespace CarMerger
 {
     public class UIManager : MonoBehaviour
     {
-        public void SpawnCarButton() => Spawner.Instance.SpawnCar();
+        public void SpawnCarButton()
+        {
+            if (GameManager.Instance.CurrentMoney >= 100)
+            {
+                Spawner.Instance.SpawnCar();
+                GameManager.Instance.RemoveMoney(100);
+            }
+        }
     }
 }
