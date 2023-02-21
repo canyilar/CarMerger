@@ -126,7 +126,6 @@ namespace CarMerger
             _moveable.SetCanMove(false);
             _currentPosition = pos;
             _rb.DOMove(pos, 0.6f).SetEase(Ease.Linear).OnComplete(() => _moveable.SetCanMove(true, 0.5f));
-            //Cenker
         }
 
         public void SetRotation(Quaternion rot) => _rb.rotation = rot;
